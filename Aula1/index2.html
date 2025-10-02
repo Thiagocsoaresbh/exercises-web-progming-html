@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!-- 
+  <!DOCTYPE html>
+  - DOCTYPE = Document Type Declaration (Declaração do Tipo de Documento).
+  - Serve para informar ao navegador qual versão do HTML estamos utilizando.
+  - No HTML5, a declaração é simples: <!DOCTYPE html>
+  - Antes do HTML5:
+      * HTML 4.01 usava: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+      * XHTML usava: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ... >
+    Essas versões referenciavam arquivos DTD (Document Type Definition) que descreviam regras mais rígidas.
+  - HTML5 simplificou, pois não usa mais DTD. O DOCTYPE passou a ser apenas um “sinal” para o navegador 
+    renderizar a página no chamado *modo padrões* (standards mode), garantindo compatibilidade moderna.
+  - Se o DOCTYPE for omitido ou estiver incorreto, o navegador pode usar o *quirks mode*, imitando comportamentos antigos
+    e quebrando o layout moderno (CSS pode ficar errado, por exemplo).
+  - No DOM, o DOCTYPE aparece como um nó especial, diferente dos elementos HTML.
+-->
+
+<html lang="pt-BR">
+<!-- 
+  <html> é o elemento raiz de toda a página HTML.
+  - Tudo que faz parte do documento (head e body) deve estar dentro dele.
+  - O atributo lang="pt-BR" indica que o idioma principal é o português do Brasil.
+    Isso ajuda:
+      * Leitores de tela (acessibilidade).
+      * Motores de busca (SEO).
+      * Corretores ortográficos em navegadores.
+  - O DOM (Document Object Model) trata o <html> como o elemento "documentElement".
+-->
+
+<head>
+  <meta charset="UTF-8">
+  <!-- 
+    Define a codificação de caracteres (UTF-8 suporta todos os caracteres).
+    Sem isso, acentos podem quebrar (Ã©, Ã£ etc).
+  -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 
+    Essencial para design responsivo:
+    - width=device-width: usa a largura real do dispositivo.
+    - initial-scale=1.0: zoom inicial padrão (100%).
+  -->
+
+  <meta name="description" content="Exemplo de página HTML comentada para explicar fundamentos da Web.">
+  <meta name="author" content="Professor Thiago Soares">
+  <meta name="keywords" content="HTML, Web, programação, fundamentos, ADS">
+  <meta name="robots" content="index, follow">
+  <!-- 
+    description → usado em resultados de busca.
+    author → autor da página.
+    keywords → pouco usado hoje, mas serve como referência.
+    robots → indexação de buscadores.
+  -->
+
+  <title>Fundamentos de Web - Aula Completa</title>
+  <!-- Título mostrado na aba do navegador -->
+</head>
+
+<body>
+  <header>
+    <h1>Fundamentos da Web</h1>
+    <!-- 
+      h1 é o título principal da página.
+      - Hierarquia recomendada:
+        * h1: título da página
+        * h2: seções
+        * h3: subseções
+    -->
+
+    <nav>
+      <!-- Área de navegação principal -->
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ================= IMAGENS ================= -->
+    <section>
+      <h2>Imagens na Web</h2>
+      <p>
+        As imagens são elementos fundamentais para enriquecer o conteúdo visual da página.
+        O elemento utilizado é o <img>, que é um elemento vazio (não tem fechamento).
+      </p>
+
+      <img src="https://via.placeholder.com/300"
+           alt="Exemplo de imagem com placeholder"
+           title="Imagem de exemplo"
+           width="300"
+           height="200">
+
+      <img src="https://via.placeholder.com/150"
+           alt="Exemplo de imagem com privacidade"
+           referrerpolicy="no-referrer"
+           loading="lazy">
+
+      <h3>Atributos importantes de imagens</h3>
+      <ul>
+        <li><strong>alt:</strong> descrição alternativa para acessibilidade.</li>
+        <li><strong>title:</strong> texto extra exibido como dica.</li>
+        <li><strong>width/height:</strong> controla dimensões.</li>
+        <li><strong>loading:</strong> otimiza carregamento.</li>
+        <li><strong>referrerpolicy:</strong> controla envio de informações.</li>
+      </ul>
+    </section>
+
+    <!-- ================= LINKS ================= -->
+    <section>
+      <h2>Links na Web</h2>
+      <p>Links conectam páginas e recursos na Web.</p>
+
+      <a href="sobre.html">Ir para a página Sobre</a> <br>
+
+      <a href="https://www.w3.org/" target="_blank" rel="noopener noreferrer">
+        Site oficial do W3C
+      </a> <br>
+
+      <a href="https://developer.mozilla.org/" target="_blank">
+        <img src="https://via.placeholder.com/100" alt="Logo fictícia" title="Visite a MDN">
+      </a>
+
+      <h3>Tipos de links</h3>
+      <ol>
+        <li>Internos</li>
+        <li>Externos</li>
+        <li>Âncoras</li>
+        <li>Download</li>
+      </ol>
+
+      <a href="documento.pdf" download="meu_arquivo.pdf">Baixar PDF</a>
+    </section>
+
+    <!-- ================= TABELAS ================= -->
+    <section>
+      <h2>Tabelas em HTML</h2>
+      <p>Exemplo de tabela com cabeçalho, corpo e rodapé:</p>
+
+      <table border="1">
+        <caption>Tabela de produtos</caption>
+        <thead>
+          <tr>
+            <th>Produto</th><th>Preço</th><th>Qtd</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Notebook</td><td>R$ 3.500</td><td>2</td></tr>
+          <tr><td>Mouse</td><td>R$ 80</td><td>10</td></tr>
+          <tr><td>Teclado</td><td>R$ 150</td><td>5</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="2">Total</td><td>17</td></tr>
+        </tfoot>
+      </table>
+
+      <p><em>Obs: em HTML5, estilizar tabelas deve ser feito com CSS, não com border.</em></p>
+    </section>
+
+    <!-- ================= FORMULÁRIOS ================= -->
+    <section>
+      <h2>Formulários</h2>
+      <form action="/enviar" method="post">
+        <fieldset>
+          <legend>Informações Pessoais</legend>
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" name="nome" required> <br>
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email"> <br>
+
+          <label for="senha">Senha:</label>
+          <input type="password" id="senha" name="senha" minlength="6" required>
+        </fieldset>
+
+        <fieldset>
+          <legend>Preferências</legend>
+          <p>Linguagem favorita:</p>
+          <input type="radio" id="lang_html" name="linguagem" value="HTML" checked>
+          <label for="lang_html">HTML</label>
+          <input type="radio" id="lang_css" name="linguagem" value="CSS">
+          <label for="lang_css">CSS</label>
+          <input type="radio" id="lang_js" name="linguagem" value="JavaScript">
+          <label for="lang_js">JavaScript</label>
+
+          <p>Recursos a aprender:</p>
+          <input type="checkbox" id="chk_forms" value="Forms"><label for="chk_forms">Formulários</label>
+          <input type="checkbox" id="chk_tables" value="Tables"><label for="chk_tables">Tabelas</label>
+          <input type="checkbox" id="chk_api" value="API"><label for="chk_api">APIs</label>
+
+          <br>
+          <label for="curso">Curso:</label>
+          <select id="curso" name="curso">
+            <option value="ads">ADS</option>
+            <option value="si">Sistemas de Informação</option>
+            <option value="cc">Ciência da Computação</option>
+          </select>
+
+          <br>
+          <label for="comentario">Comentário:</label><br>
+          <textarea id="comentario" rows="4" cols="40"></textarea>
+        </fieldset>
+
+        <fieldset>
+          <legend>Ações</legend>
+          <button type="submit">Enviar</button>
+          <button type="reset">Limpar</button>
+          <button type="button" onclick="alert('Exemplo com JS')">Clique aqui</button>
+        </fieldset>
+      </form>
+    </section>
+
+    <!-- ================= BOAS PRÁTICAS ================= -->
+    <section>
+      <h2>Boas Práticas</h2>
+      <ul>
+        <li>Usar sempre <code>&lt;!DOCTYPE html&gt;</code>.</li>
+        <li>Organizar em <header>, <nav>, <main>, <section>, <footer>.</li>
+        <li>Preferir tags semânticas a <div>.</li>
+        <li>Sempre usar <strong>alt</strong> em imagens.</li>
+        <li>Separar HTML, CSS e JS.</li>
+        <li>Validar no <a href="https://validator.w3.org/">W3C Validator</a>.</li>
+      </ul>
+    </section>
+
+    <!-- ================= RESUMO FINAL ================= -->
+    <section>
+      <h2>Resumo da Aula</h2>
+      <ol>
+        <li>História da Web e cliente/servidor.</li>
+        <li>Front-end e back-end.</li>
+        <li>Estrutura básica do HTML.</li>
+        <li>Títulos, parágrafos, listas, imagens, links.</li>
+        <li>Tabelas.</li>
+        <li>Formulários.</li>
+        <li>Rodapé e boas práticas.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 MeuSite. Todos os direitos reservados.</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
+    </nav>
+  </footer>
+</body>
+</html>

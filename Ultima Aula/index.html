@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<!--
+  DOCTYPE (Document Type Declaration)
+  - NÃO é uma tag HTML; é uma instrução para o navegador sobre o tipo do documento.
+  - Em HTML5 a forma é curta: <!DOCTYPE html>. Diferente do HTML4/XHTML, não há DTD externa.
+  - Objetivo: ativar o "modo padrões" (standards mode) nos navegadores e garantir parsing moderno.
+  - Na árvore do DOM, o DOCTYPE é representado como um nó DocumentType separado do <html>.
+-->
+<html lang="pt-BR">
+<!--
+  <html lang="pt-BR">
+  - Elemento RAIZ do documento. Tudo (exceto o DOCTYPE) vive dentro dele no DOM.
+  - Atributo global lang informa o idioma principal. Leitores de tela, corretores e buscadores usam isso.
+  - Em HTML5, <html> continua sendo o contêiner semântico principal e pai de <head> e <body>.
+-->
+<head>
+  <!--
+    <head>
+    - Contém metadados e instruções de processamento (não são conteúdo principal).
+    - Exemplos de filhos: <meta>, <title>, <link>, <style>, <script>. Muitos desses influenciam o parsing/renderização.
+  -->
+
+  <meta charset="UTF-8">
+  <!--
+    <meta charset="UTF-8">
+    - Define a codificação de caracteres. UTF-8 cobre acentuação e símbolos internacionais.
+    - Deve vir o mais cedo possível para o navegador decodificar corretamente os bytes em caracteres.
+  -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--
+    Controle de viewport em dispositivos móveis:
+    - width=device-width: faz o viewport lógico = largura do dispositivo.
+    - initial-scale=1: zoom inicial em 100%.
+    - Sem isso, páginas podem aparecer "espremidas" em celulares.
+  -->
+
+  <meta name="description" content="Fundamentos de Web: história, cliente/servidor, navegadores, HTTP/HTTPS, front-end/back-end, estrutura de site, HTML/HTML5. Página didática ultra comentada.">
+  <!-- Metadado útil para SEO e compartilhamento. Não aparece no conteúdo visível. -->
+
+  <title>Fundamentos de Web — Página Ultra Comentada</title>
+  <!--
+    <title>
+    - Texto exibido na aba/guia do navegador e no histórico.
+    - No DOM existe como HTMLTitleElement e seu conteúdo de texto é o título do documento.
+  -->
+
+  <style>
+    /*
+      <style> contém CSS embutido. Em projetos reais é comum usar arquivos externos (.css) via <link>,
+      mas aqui mantemos tudo em um único arquivo para fins didáticos. CSS externo pode atrasar a pintura
+      inicial (render-blocking) até ser baixado e processado; já o CSS inline está disponível imediatamente.
+    */
+    :root {
+      --bg: #0e1926;        /* Fundo geral escuro para aumentar contraste das caixas */
+      --card: #101f31;      /* Cor de cartões */
+      --text: #e6eef7;      /* Texto padrão */
+      --muted: #b8c6d9;     /* Texto mais fraco */
+      --border: #1f3347;    /* Bordas sutis */
+      --primary: #0b5fff;   /* Acento principal */
+      --accent: #0aa39a;    /* Segundo acento */
+      --radius: 12px;       /* Raio padrão de cantos */
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 20% 0%, #0c2540 0%, var(--bg) 60%);
+      line-height: 1.6;
+    }
+
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+    header, nav, main, section, article, aside, footer {
+      /* Elementos semânticos HTML5: ajudam leitores de tela e SEO a entender a estrutura. */
+      display: block; /* O display padrão desses elementos é block. */
+    }
+
+    header.site { position: sticky; top: 0; z-index: 10; background: rgba(16,31,49,.85); backdrop-filter: blur(6px); border-bottom: 1px solid var(--border); }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand__logo { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--accent)); border: 2px solid var(--border); }
+    .brand__title { font-weight: 700; letter-spacing: .2px; }
+
+    nav.primary ul { list-style: none; display: flex; gap: 14px; margin: 0; padding: 0; flex-wrap: wrap; }
+    nav.primary a { padding: 6px 10px; border-radius: 8px; border: 1px solid transparent; }
+    nav.primary a[aria-current="page"] { border-color: var(--primary); background: rgba(11,95,255,.08); }
+
+    .grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+    @media (min-width: 900px) { .grid { grid-template-columns: 2fr 1fr; } }
+
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+    .muted { color: var(--muted); }
+    .lead { font-size: 1.08rem; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; }
+    thead th { background: #0f2744; }
+    caption { text-align: left; font-weight: 600; margin-bottom: 8px; }
+
+    fieldset { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; }
+    .field { display: grid; gap: 6px; margin-bottom: 12px; }
+    input, select, textarea { background: rgba(255,255,255,.04); border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 10px; }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--primary); outline-offset: 1px; }
+    .actions { display: flex; gap: 10px; }
+    .btn { display: inline-block; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--primary); background: var(--primary); color: #fff; text-decoration: none; }
+    .btn.secondary { background: transparent; color: var(--primary); }
+
+    footer.site { border-top: 1px solid var(--border); margin-top: 28px; }
+  </style>
+
+  <script defer>
+    /*
+      <script defer>
+      - Scripts marcados com "defer" NÃO bloqueiam o parser HTML e são executados após o término do parsing,
+        mantendo a ordem em que aparecem. Isso significa que o DOM estará pronto (similar a DOMContentLoaded).
+      - Diferente de <script> síncrono (sem defer/async) que pau-sa o parser até baixar e executar.
+      - Diferente de async: com async a execução pode ocorrer assim que o download termina, fora de ordem.
+    */
+    window.addEventListener('DOMContentLoaded', () => {
+      console.log('[defer] DOM construído. Títulos no documento:', document.querySelectorAll('h1, h2, h3').length);
+    });
+  </script>
+</head>
+
+<body>
+  <!--
+    <body>
+    - Contém o conteúdo visível (renderizado) e interativo. No DOM, document.body referencia este elemento.
+    - O navegador constrói o DOM do topo para baixo: ao encontrar tags, cria nós; ao encontrar texto, cria nós de texto.
+    - A pintura (render) acontece em ciclos conforme DOM e CSSOM ficam prontos (Render Tree -> layout -> paint).
+  -->
+
+  <header class="site">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <!-- <div> é um contêiner genérico sem semântica específica. Usamos para layout. -->
+      <div class="brand" id="topo">
+        <span class="brand__logo" aria-hidden="true"></span>
+        <span class="brand__title">Fundamentos de Web (ADS)</span>
+      </div>
+      <nav class="primary" aria-label="Navegação principal">
+        <!-- <nav> define área de navegação. aria-label ajuda tecnologias assistivas. -->
+        <ul>
+          <!-- <ul> lista não ordenada; <li> são seus itens. Em DOM: HTMLUListElement com vários HTMLLIElement. -->
+          <li><a href="#fundamentos" aria-current="page">Fundamentos</a></li>
+          <li><a href="#estrutura">Estrutura HTML</a></li>
+          <li><a href="#elementos">Elementos</a></li>
+          <li><a href="#html5">HTML5</a></li>
+          <li><a href="#tabela">Tabela</a></li>
+          <li><a href="#form">Formulário</a></li>
+          <li><a href="#midia">Mídia</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container grid">
+    <!--
+      .grid cria duas colunas em telas largas: principal (2fr) e aside (1fr). Em telas pequenas, 1 coluna.
+      Isso demonstra responsividade sem frameworks.
+    -->
+
+    <main>
+      <!-- <main> contém o conteúdo principal único da página. Acessibilidade reconhece como destino de "pular para o conteúdo". -->
+
+      <section id="fundamentos" class="card" aria-labelledby="fundamentos-titulo">
+        <!-- <section> agrupa conteúdo temático. id permite navegação por âncora (#fundamentos). -->
+        <h1 id="fundamentos-titulo">Fundamentos de Web</h1>
+        <p class="lead">
+          Nesta seção explicamos história, modelo cliente/servidor, navegadores e protocolos, e o papel de
+          front-end e back-end em uma aplicação web.
+        </p>
+
+        <article>
+          <!-- <article> representa conteúdo independente (poderia ser reutilizado/compartilhado). -->
+          <h2>História resumida da Web</h2>
+          <p>
+            A Web surgiu no início dos anos 1990 como um sistema de documentos interligados por hiperlinks.
+            Navegadores solicitam documentos a servidores usando protocolos como HTTP, e recebem respostas
+            (HTML, CSS, JS, imagens). Com o tempo, navegadores e padrões evoluíram (HTML4, XHTML, HTML5),
+            habilitando experiências ricas e aplicações completas no navegador.
+          </p>
+        </article>
+
+        <article>
+          <h2>Cliente/Servidor</h2>
+          <p>
+            O navegador é o <strong>cliente</strong> que envia uma <em>requisição HTTP</em> a um
+            <strong>servidor</strong>. O servidor processa (dinamicamente ou não) e responde com um
+            <em>status</em> e um <em>corpo</em> (HTML, JSON, etc.). O cliente então renderiza ou processa
+            a resposta. Esse ciclo se repete a cada navegação ou chamada a uma API.
+          </p>
+        </article>
+
+        <article>
+          <h2>Navegadores e Protocolos (HTTP/HTTPS)</h2>
+          <ul>
+            <li><strong>Navegadores</strong>: Chrome, Firefox, Safari, Edge. Renderizam HTML/CSS, executam JS.</li>
+            <li><strong>HTTP</strong>: protocolo de aplicação sem estado. Métodos típicos: GET, POST, PUT, DELETE.</li>
+            <li><strong>HTTPS</strong>: HTTP sobre TLS. Criptografa o tráfego e garante integridade e autenticidade.</li>
+            <li><strong>URLs</strong>: identificam recursos (esquema, host, caminho, query).</li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>Front-end e Back-end</h2>
+          <p>
+            <strong>Front-end</strong> é o que roda no navegador (HTML, CSS, JavaScript) e lida com UI/UX.
+            <strong>Back-end</strong> roda no servidor (ex.: Node.js, Java, .NET, PHP, Python), cuida de regras
+            de negócio, persistência e APIs. As camadas se comunicam via HTTP/HTTPS trocando JSON/HTML.
+          </p>
+        </article>
+
+        <article>
+          <h2>Estrutura básica de um site</h2>
+          <p>
+            Um site costuma ter <em>páginas</em> organizadas com cabeçalho, navegação, conteúdo principal,
+            barras laterais e rodapé. Em HTML5 representamos isso com tags semânticas específicas (abaixo).
+          </p>
+        </article>
+      </section>
+
+      <section id="estrutura" class="card" aria-labelledby="estrutura-titulo">
+        <h2 id="estrutura-titulo">HTML: Estrutura do Documento</h2>
+        <p>
+          A estrutura mínima é composta de <code>&lt;!DOCTYPE&gt;</code>, <code>&lt;html&gt;</code>,
+          <code>&lt;head&gt;</code> e <code>&lt;body&gt;</code>. Abaixo exibimos um exemplo didático:
+        </p>
+        <pre class="card" aria-label="Exemplo de estrutura mínima em HTML"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Título da Página&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Olá, mundo!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <p class="muted">O navegador cria o DOM conforme encontra essas tags, montando a árvore de nós em memória.</p>
+      </section>
+
+      <section id="elementos" class="card" aria-labelledby="elementos-titulo">
+        <h2 id="elementos-titulo">Principais Elementos e Atributos</h2>
+        <p class="lead">A seguir demonstramos listas, links, imagens, e uma pequena tabela.</p>
+
+        <h3>Listas</h3>
+        <ul>
+          <li>Item em lista não-ordenada (ul/li).</li>
+          <li>Outro item. Cada <code>&lt;li&gt;</code> é um nó filho da lista.</li>
+        </ul>
+        <ol>
+          <li>Item 1 em lista ordenada (ol/li).</li>
+          <li>Item 2.</li>
+        </ol>
+
+        <h3>Links e Imagens</h3>
+        <p>
+          Link para um recurso externo: <a href="https://developer.mozilla.org/pt-BR/docs/Web/HTML" target="_blank" rel="noopener noreferrer">Documentação HTML (MDN)</a>.
+          O atributo <code>target</code> abre em nova aba; <code>rel</code> adiciona segurança.
+        </p>
+        <figure>
+          <img src="https://picsum.photos/seed/fundamentos/640/360" alt="Imagem ilustrativa" width="640" height="360" style="max-width:100%;height:auto;border-radius:10px;">
+          <figcaption>Figura — Exemplo de imagem com <code>alt</code> descritivo e legenda.</figcaption>
+        </figure>
+      </section>
+
+      <section id="html5" class="card" aria-labelledby="html5-titulo">
+        <h2 id="html5-titulo">Evolução até o HTML5 e Novidades</h2>
+        <p>
+          Comparado ao HTML4/XHTML, o HTML5 trouxe:
+        </p>
+        <ul>
+          <li><strong>Semântica</strong>: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>.</li>
+          <li><strong>Multimídia nativa</strong>: <code>&lt;audio&gt;</code> e <code>&lt;video&gt;</code> sem plugins externos.</li>
+          <li><strong>Formulários melhores</strong>: novos <em>types</em> e atributos (email, url, date, required, pattern...).</li>
+          <li><strong>API de Canvas/SVG</strong> e melhor integração para gráficos e vetores.</li>
+          <li><strong>DOCTYPE simplificado</strong> e <code>&lt;meta charset&gt;</code> direto.</li>
+        </ul>
+        <p class="muted">
+          Observação: APIs como <code>localStorage</code>, <code>history</code>, <code>geolocation</code> fazem parte
+          do ecossistema Web Platform (JavaScript), não do HTML em si, mas nasceram na mesma geração de padrões.
+        </p>
+      </section>
+
+      <section id="tabela" class="card" aria-labelledby="tabela-titulo">
+        <h2 id="tabela-titulo">Tabela</h2>
+        <table>
+          <caption>Exemplo de dados tabulares</caption>
+          <thead>
+            <tr>
+              <th scope="col">Matrícula</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Trabalho</th>
+              <th scope="col">Prova</th>
+              <th scope="col">Média</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>2025001</td><td>Ana</td><td>9.0</td><td>8.0</td><td>8.5</td></tr>
+            <tr><td>2025002</td><td>Bruno</td><td>7.5</td><td>9.0</td><td>8.25</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><th colspan="4" scope="row">Média geral</th><td>8.38</td></tr>
+          </tfoot>
+        </table>
+      </section>
+
+      <section id="form" class="card" aria-labelledby="form-titulo">
+        <h2 id="form-titulo">Formulário</h2>
+        <!--
+          <form> engloba campos. action/method controlam o envio. Para aula, manteremos action="#" (sem envio real).
+          Validação nativa (required, type=email...) é do HTML; validações customizadas podem ser em JS.
+        -->
+        <form action="#" method="post" autocomplete="on">
+          <fieldset>
+            <legend>Cadastro básico</legend>
+
+            <div class="field">
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" type="text" placeholder="Seu nome" required minlength="2">
+            </div>
+
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input id="email" name="email" type="email" placeholder="voce@exemplo.com" required>
+            </div>
+
+            <div class="field">
+              <label for="nascimento">Data de nascimento</label>
+              <input id="nascimento" name="nascimento" type="date">
+            </div>
+
+            <div class="field">
+              <span>Turno</span>
+              <!-- Radios: escolha única porque compartilham o mesmo name. -->
+              <label><input type="radio" name="turno" value="manha" checked> Manhã</label>
+              <label><input type="radio" name="turno" value="tarde"> Tarde</label>
+              <label><input type="radio" name="turno" value="noite"> Noite</label>
+            </div>
+
+            <div class="field">
+              <label for="curso">Curso</label>
+              <select id="curso" name="curso">
+                <option value="ads">ADS</option>
+                <option value="si">Sistemas de Informação</option>
+                <option value="cc">Ciência da Computação</option>
+              </select>
+            </div>
+
+            <div class="actions">
+              <button class="btn" type="submit">Enviar</button>
+              <button class="btn secondary" type="reset">Limpar</button>
+              <a class="btn" href="#topo">Voltar ao topo</a>
+            </div>
+          </fieldset>
+        </form>
+      </section>
+
+      <section id="midia" class="card" aria-labelledby="midia-titulo">
+        <h2 id="midia-titulo">Multimídia em HTML5</h2>
+        <p>Áudio e vídeo podem ser incorporados sem plugins externos.</p>
+        <h3>Áudio</h3>
+        <audio controls>
+          <source src="sample.mp3" type="audio/mpeg">
+          Seu navegador não suporta <code>audio</code>.
+        </audio>
+        <h3>Vídeo</h3>
+        <video controls width="480" poster="https://picsum.photos/seed/poster/480/270">
+          <source src="sample.mp4" type="video/mp4">
+          Seu navegador não suporta <code>video</code>.
+        </video>
+      </section>
+    </main>
+
+    <aside class="card" aria-label="Notas laterais">
+      <h2>Notas</h2>
+      <ul>
+        <li>Elementos HTML são declarativos; JavaScript é imperativo e manipula a árvore do DOM.</li>
+        <li>Scripts síncronos sem <code>defer/async</code> bloqueiam o parser até executarem.</li>
+        <li>CSS externo pode atrasar a primeira pintura; crie CSS crítico inline quando necessário.</li>
+      </ul>
+    </aside>
+  </div>
+
+  <footer class="site">
+    <div class="container">
+      <p class="muted">&copy; <span id="ano"></span> — Página didática. HTML5 semântico, acessível e responsivo.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Este <script> é síncrono (sem defer/async) porque está AO FINAL do <body>.
+    // Nesta posição ele não bloqueia a renderização do conteúdo acima, pois o DOM já foi praticamente todo criado.
+
+    // Preenche o ano atual no rodapé (demonstração de leitura e escrita no DOM):
+    document.getElementById('ano').textContent = new Date().getFullYear();
+
+    // Demonstra diferença entre eventos de carregamento
+    window.addEventListener('DOMContentLoaded', () => {
+      console.log('[body] DOMContentLoaded: DOM pronto para manipulação.');
+    });
+    window.addEventListener('load', () => {
+      console.log('[body] load: todos os recursos (imagens, CSS, fontes, vídeos) foram carregados.');
+    });
+
+    // Exemplo: atualizar estado visual da navegação ao clicar
+    (function initNavHighlight(){
+      const nav = document.querySelector('nav.primary');
+      if (!nav) return;
+      const links = nav.querySelectorAll('a[href^="#"]');
+      links.forEach(a => {
+        a.addEventListener('click', () => {
+          links.forEach(l => l.removeAttribute('aria-current'));
+          a.setAttribute('aria-current', 'page');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

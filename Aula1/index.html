@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!-- 
+  <!DOCTYPE html>
+  - DOCTYPE = Document Type Declaration (Declaração do Tipo de Documento).
+  - Serve para informar ao navegador qual versão do HTML estamos utilizando.
+  - No HTML5, a declaração é simples: <!DOCTYPE html>
+  - Antes do HTML5:
+      * HTML 4.01 usava: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+      * XHTML usava: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ... >
+    Essas versões referenciavam arquivos DTD (Document Type Definition) que descreviam regras mais rígidas.
+  - HTML5 simplificou, pois não usa mais DTD. O DOCTYPE passou a ser apenas um “sinal” para o navegador 
+    renderizar a página no chamado *modo padrões* (standards mode), garantindo compatibilidade moderna.
+  - Se o DOCTYPE for omitido ou estiver incorreto, o navegador pode usar o *quirks mode*, imitando comportamentos antigos
+    e quebrando o layout moderno (CSS pode ficar errado, por exemplo).
+  - No DOM, o DOCTYPE aparece como um nó especial, diferente dos elementos HTML.
+-->
+
+<html lang="pt-BR">
+<!-- 
+  <html> é o elemento raiz de toda a página HTML.
+  - Tudo que faz parte do documento (head e body) deve estar dentro dele.
+  - O atributo lang="pt-BR" indica que o idioma principal é o português do Brasil.
+    Isso ajuda:
+      * Leitores de tela (acessibilidade).
+      * Motores de busca (SEO).
+      * Corretores ortográficos em navegadores.
+  - O DOM (Document Object Model) trata o <html> como o elemento "documentElement".
+-->
+
+<head>
+<!-- 
+  <head>
+  - Contém metadados sobre a página (informações que descrevem a página, mas não aparecem diretamente para o usuário).
+  - Também pode incluir links para arquivos externos (CSS, JavaScript, ícones).
+  - O conteúdo do <head> NÃO aparece dentro da janela principal do navegador.
+  - Exemplos comuns de filhos de <head>:
+      * <meta> → metadados como charset, viewport, autor, descrição.
+      * <title> → título que aparece na aba do navegador.
+      * <link> → conexão com arquivos externos (folha de estilo, favicon).
+      * <style> → CSS interno.
+      * <script> → código JavaScript.
+-->
+
+  <meta charset="UTF-8">
+  <!-- 
+    <meta charset="UTF-8">
+    - Define a codificação de caracteres que será usada no documento.
+    - UTF-8 é a mais utilizada atualmente porque suporta praticamente todos os caracteres e símbolos do mundo.
+    - Sem isso, caracteres acentuados (á, ã, ç, etc.) podem aparecer quebrados (Ã§, Ã¡).
+    - Este meta deve ser declarado logo no início do <head>, pois o navegador precisa saber como interpretar os bytes.
+  -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 
+    <meta name="viewport"> 
+    - Fundamental para design responsivo em dispositivos móveis.
+    - content="width=device-width": ajusta a largura lógica da página para coincidir com a largura real do dispositivo.
+    - initial-scale=1.0: define o nível de zoom inicial como 100%.
+    - Sem esse meta, a página pode aparecer “espremida” ou muito pequena em celulares.
+  -->
+
+  <meta name="description" content="Exemplo de página HTML comentada para explicar fundamentos da Web.">
+  <!-- 
+    Fornece uma descrição curta do conteúdo da página.
+    - Usado por motores de busca (Google exibe isso nos resultados).
+    - Recomenda-se até 160 caracteres.
+  -->
+
+  <meta name="author" content="Professor Thiago Soares">
+  <!-- 
+    Indica o autor da página. É opcional, mas útil em trabalhos acadêmicos e corporativos.
+  -->
+
+  <meta name="keywords" content="HTML, Web, programação, fundamentos, ADS">
+  <!-- 
+    Lista de palavras-chave relacionadas à página.
+    - Hoje em dia os grandes buscadores (como o Google) não usam muito este campo para ranqueamento,
+      mas alguns sistemas internos ainda utilizam.
+  -->
+
+  <meta name="robots" content="index, follow">
+  <!-- 
+    Indica para os robôs de busca se a página deve ser indexada.
+    - index = pode indexar.
+    - follow = pode seguir links desta página.
+    - Caso quiséssemos esconder do Google: "noindex, nofollow".
+  -->
+
+  <title>Fundamentos de Web - Parte 1</title>
+  <!-- 
+    <title> define o título da página.
+    - É exibido na aba/guia do navegador.
+    - Também aparece no histórico e como título em resultados de busca.
+    - Cada página deve ter um título único e significativo.
+  -->
+
+</head>
+<body>
+<!-- 
+  <body>
+  - Aqui ficam todos os elementos visíveis da página para o usuário.
+  - Tudo que aparece na janela principal do navegador está dentro do <body>.
+  - Diferente do <head>, que contém apenas metadados.
+  - No DOM, o <body> é o elemento que contém a árvore de elementos da interface.
+-->
+
+  <header>
+  <!-- 
+    <header>
+    - Elemento semântico introduzido no HTML5.
+    - Representa o cabeçalho da página ou de uma seção.
+    - Normalmente contém logo, título principal, menu de navegação.
+    - Cada seção ou artigo também pode ter seu próprio <header>.
+  -->
+
+    <h1>Fundamentos da Web</h1>
+    <!-- 
+      <h1> é o título principal da página.
+      - Vai de <h1> até <h6>.
+      - <h1> = mais importante, <h6> = menos importante.
+      - Serve tanto para hierarquia visual quanto para semântica (SEO, acessibilidade).
+      - Exemplo de hierarquia recomendada:
+          * h1: título da página
+          * h2: seções principais
+          * h3: subseções
+    -->
+
+    <nav>
+    <!-- 
+      <nav>
+      - Elemento semântico de HTML5.
+      - Indica uma área de navegação (menus, links de navegação principais).
+      - Ajuda leitores de tela a identificar áreas de navegação.
+    -->
+
+      <ul>
+      <!-- 
+        <ul> = unordered list (lista não ordenada).
+        - Cria uma lista de itens com marcadores (bolinhas, quadrados).
+        - Dentro dela usamos <li> (list item) para cada item.
+      -->
+
+        <li><a href="index.html">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="contato.html">Contato</a></li>
+        <!-- 
+          <li> = list item (item da lista).
+          <a href="..."> = âncora/link.
+            - href indica o destino do link (pode ser outra página, seção interna, ou até um link externo).
+            - Por padrão, abre na mesma aba. Se quisermos abrir em nova aba: target="_blank".
+        -->
+      </ul>
+
+    </nav>
+  </header>
+
+  <main>
+  <!-- 
+    <main>
+    - Outro elemento semântico do HTML5.
+    - Representa o conteúdo principal da página.
+    - Deve ser único e não deve estar dentro de <header>, <footer> ou <aside>.
+    - Ajuda mecanismos de busca e tecnologias assistivas a localizar o conteúdo principal.
+  -->
+
+    <section>
+    <!-- 
+      <section>
+      - Seção genérica de conteúdo que pode agrupar um tema.
+      - Exemplo: seção "História da Web".
+      - Pode conter títulos, parágrafos, listas, imagens, etc.
+    -->
+
+      <h2>História da Web</h2>
+      <!-- 
+        h2 = título de segundo nível, subordinado ao h1 da página.
+        - Deve ser usado para organizar o conteúdo em tópicos principais.
+      -->
+
+      <p>
+        A Web surgiu no início da década de 1990 com Tim Berners-Lee no CERN.
+        Seu objetivo era compartilhar informações científicas de forma simples.
+      </p>
+      <!-- 
+        <p> = parágrafo de texto.
+        - Quebra automática de linha antes e depois.
+        - No DOM, cada <p> é um nó de texto dentro de um container <p>.
+      -->
+
+      <p>
+        A arquitetura inicial era baseada em um modelo cliente-servidor,
+        usando o protocolo HTTP para comunicação e navegadores para exibir páginas.
+      </p>
+      <!-- 
+        Outro parágrafo explicativo.
+        - Note que podemos ter múltiplos <p> em uma mesma seção.
+      -->
+
+      <h3>Principais conceitos</h3>
+      <!-- 
+        h3 = título de terceiro nível, subordinado ao h2 "História da Web".
+        - Hierarquia de títulos ajuda a organizar a leitura.
+      -->
+
+      <ol>
+      <!-- 
+        <ol> = ordered list (lista ordenada).
+        - Diferente do <ul>, que tem marcadores.
+        - Aqui cada item é numerado (1, 2, 3...).
+      -->
+
+        <li>Cliente: o navegador do usuário que faz a requisição.</li>
+        <li>Servidor: a máquina que responde às requisições e fornece conteúdo.</li>
+        <li>Protocolo HTTP/HTTPS: responsável pela comunicação entre cliente e servidor.</li>
+        <!-- 
+          Cada <li> é um item da lista.
+          - Os navegadores numeram automaticamente os itens em <ol>.
+        -->
+      </ol>
+
+    </section>
+  </main>
+</body>
+</html>
